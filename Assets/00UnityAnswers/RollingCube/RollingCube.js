@@ -8,6 +8,11 @@ var tileRend: Renderer;
 
 var newRotation: Vector3;
 
+var cubeMoveSound : AudioClip;
+var tileSuccessSound : AudioClip;
+var tileFailSound : AudioClip;
+var cubePickupInk : AudioClip;
+
 public var downFace : GameObject;
 
 var tileShader : Shader;
@@ -33,7 +38,7 @@ function RotateCube(refPoint : Vector3, rotationAxis : Vector3)
 		rotator.rotation = Quaternion.AngleAxis(Mathf.Min(angle,90.0),rotationAxis);
 	    yield;
 	}
-	GetComponent.<AudioSource>().PlayOneShot(GetComponent.<AudioSource>().clip);
+	GetComponent.<AudioSource>().PlayOneShot(cubeMoveSound);
     transform.parent = null;
 	rotating = false;
 	calcFaceDown();
@@ -96,7 +101,7 @@ function calcCollision() {
 		}
 		
 		//colliding with a blank tile
-		if (tileScript.tileType == "blankInfinite"  && cubeScript.faceState == "active") { //blank tile that can be infinitely restamped
+		if (tileScript.tileType == "blankInfinite" && tileScript.tileState == "inactive" && cubeScript.faceState == "active") { //blank tile that can be infinitely restamped
 			stampTile=true;
 		
 		}
@@ -165,7 +170,14 @@ function calcCollision() {
 			Debug.Log ("angle " + angleSuccess + " shape " + shapeSuccess + " colour " + colourSuccess);
 			
 			if (angleSuccess && shapeSuccess && colourSuccess) {
-				collidingTile.transform.position.y-=1;
+				//collidingTile.transform.position.y-=1;
+				tileScript.tileState = "done";
+				GetComponent.<AudioSource>().PlayOneShot(tileSuccessSound);
+			}
+			
+			else {
+				//GetComponent.<AudioSource>().Success(GetComponent.<AudioSource>().clip);
+				GetComponent.<AudioSource>().PlayOneShot(tileFailSound);
 			}
 			
 			
@@ -188,6 +200,9 @@ function calcCollision() {
 
 			cubeRend.material.color = tileRend.material.color;
 			cubeScript.faceState = "active";
+			
+			
+			GetComponent.<AudioSource>().PlayOneShot(cubePickupInk);
 		
 		}
 		
