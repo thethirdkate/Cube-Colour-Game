@@ -2,11 +2,16 @@
 
 
 public var tileType : String;
-
 public var tileState : String = "inactive";
 
-function Start () {
+public var successStates : boolean[];
+public var successShape : Texture;
+public var successColour : Color;
 
+//public var siblingTile : GameObject;
+
+function Start () {
+			transform.localScale.y = -0.1; //reverse the tile - so it mirrors the cube when stamped upon	
 }
 
 function Update () {
