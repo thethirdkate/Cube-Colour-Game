@@ -1,5 +1,10 @@
 ﻿#pragma strict
 
+
+public var tileType : String;
+
+public var tileState : String = "inactive";
+
 function Start () {
 
 }

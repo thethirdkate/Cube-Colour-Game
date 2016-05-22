@@ -57,17 +57,59 @@ function calcFaceDown() {
 	//Debug.Log("down face is " + lowestChild);
 }
 
+
+
+
 function calcCollision() {
-	if (downFace.gameObject.GetComponent.<CubeEdgeScript>().isColliding) {
-		Debug.Log ("collide with face " + downFace.name);
+	var cubeScript = downFace.gameObject.GetComponent.<CubeEdgeScript>();
+	
+	
+	if (cubeScript.isColliding) {
+	
 		
-		//change colour of tile to match colour of cube face
-		cubeRend = downFace.GetComponent.<Renderer>();
+		
 		var collidingTile = downFace.GetComponent.<CubeEdgeScript>().collidingTile;
+		var tileScript = collidingTile.gameObject.GetComponent.<CollisionScript>();
+		
+		
+		//get the renderers
+		cubeRend = downFace.GetComponent.<Renderer>();
 		tileRend = collidingTile.GetComponent.<Renderer>();
-		tileRend.material.color = cubeRend.material.color;
+	
+		Debug.Log ("collide with face " + downFace.name + tileScript.tileType);
+		
+	
+		
+		//colliding with a blank tile - one time stamp only
+		if (tileScript.tileType == "blank" && tileScript.tileState == "inactive" && cubeScript.faceState == "active") { //change the tile to match the cube
+		
+			tileRend.material.color = cubeRend.material.color;
+			tileScript.tileState = "used";
+		
+		}
+		
+		//colliding with a blank tile
+		if (tileScript.tileType == "blankInfinite"  && cubeScript.faceState == "active") { //blank tile that can be infinitely restamped
+		
+			tileRend.material.color = cubeRend.material.color;
+		
+		}
+		
+		
+		//colliding with an ink tile
+		if (tileScript.tileType == "ink") { //change the cube to match the tile
+		
+			cubeRend.material.color = tileRend.material.color;
+			cubeScript.faceState = "active";
+		
+		}
+		
+		
+		
 	}
 }
+
+
 
 function Update ()
 {
