@@ -46,9 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\00UnityAnswers\RollingCube\CollisionScript.js" />
-     <Compile Include="Assets\00UnityAnswers\RollingCube\CubeEdgeScript.js" />
-     <Compile Include="Assets\00UnityAnswers\RollingCube\RollingCube.js" />
+     <Compile Include="Assets\scripts\CubeEdgeScript.js" />
+     <Compile Include="Assets\scripts\RollingCube.js" />
+     <Compile Include="Assets\scripts\TestScript.js" />
+     <Compile Include="Assets\scripts\TileScript.js" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
