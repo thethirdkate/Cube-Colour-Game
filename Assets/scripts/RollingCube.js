@@ -113,6 +113,9 @@ function calcCollision() {
 		}
 		
 		if (stampTile) {
+
+			/* START VALIDATION OF COLOUR SHAPE AND ANGLE */
+			/*
 			tileRend.material = cubeRend.material;
 			
 			var targetTile = tileScript.siblingTile;
@@ -175,9 +178,14 @@ function calcCollision() {
 		//	}*/
 			
 			
-			Debug.Log ("angle " + angleSuccess + " shape " + shapeSuccess + " colour " + colourSuccess);
-			
-			if (angleSuccess && shapeSuccess && colourSuccess) {
+			//Debug.Log ("angle " + angleSuccess + " shape " + shapeSuccess + " colour " + colourSuccess);
+
+
+			/* END VALIDATION OF COLOUR SHAPE AND ANGLE */
+
+			 
+
+			if (doesTileMatch(tileScript.successColour)) {
 				//collidingTile.transform.position.y-=1;
 				tileScript.tileState = "done";
 				GetComponent.<AudioSource>().PlayOneShot(tileSuccessSound);
@@ -317,5 +325,89 @@ function isSpaceFree(direction: String) {
     
 
 	return isSpaceFree;
+
+}
+
+function doesTileMatch(checkColor : Color) {
+
+		
+
+			var cubeScript = downFace.gameObject.GetComponent.<CubeEdgeScript>();
+		
+			var collidingTile = downFace.GetComponent.<CubeEdgeScript>().collidingTile;
+			var tileScript = collidingTile.gameObject.GetComponent.<TileScript>();
+			
+			
+			//get the renderers
+			cubeRend = downFace.GetComponent.<Renderer>();
+			tileRend = collidingTile.GetComponent.<Renderer>();
+
+			/* START VALIDATION OF COLOUR SHAPE AND ANGLE */
+			tileRend.material = cubeRend.material;
+			
+			var targetTile = tileScript.siblingTile;
+			
+			newRotation = new Vector3(collidingTile.transform.eulerAngles.x, downFace.transform.eulerAngles.y, collidingTile.transform.eulerAngles.z);
+			collidingTile.transform.eulerAngles = newRotation;
+			
+			var tileAngle = Mathf.Round(collidingTile.transform.eulerAngles.y);
+			
+		
+			
+			//now check for success of ANGLE
+			
+			//reason for this method is possibility that tiles will have multiple possibilities for success - e.g. a circle
+			//hence manual method
+			
+			var angleSuccess : boolean = false;
+			var checkFor : int;
+			
+			if (tileAngle==0) { checkFor=0; }
+			if (tileAngle==90) { checkFor=1; }
+			if (tileAngle==180) { checkFor=2; }
+			if (tileAngle==270) { checkFor=3; }
+			
+			//Debug.Log ("angle " + tileAngle + "check for " + checkFor + " answer is " + tileScript.successStates[checkFor]);
+			if (tileScript.successStates[checkFor]) { angleSuccess = true; }
+			
+			//check for SHAPE SUCCESS
+			var shapeSuccess : boolean = false;
+			if (tileRend.material.mainTexture==tileScript.successShape) {
+				shapeSuccess = true;
+			}
+			
+	
+			//check for COLOUR SUCCESS
+			var colourSuccess : boolean = false; 
+			
+			var colourMatch1 = tileRend.material.color;
+			//var colourMatch2 = tileScript.successColour;
+			var colourMatch2 = checkColor;
+
+			Debug.Log(colourMatch1 + " vs " + colourMatch2);
+			
+			//doing it this way so the alpha channel isn't compared and messing it up
+			if (colourMatch1.r == colourMatch2.r && colourMatch1.g == colourMatch2.g && colourMatch1.b == colourMatch2.b) {
+				colourSuccess = true;
+			}
+			//Debug.Log(tileRend.material.color);
+			//Debug.Log(tileScript.successColour);
+			//BAD METHOD
+			
+			//Debug.Log(targetTile.GetComponent.<Renderer>().material.mainTexture);
+		/*	var targetShape = targetTile.GetComponent.<Renderer>().material.mainTexture;
+			Debug.Log("target" + targetShape);
+			Debug.Log(" actual " + tileRend.material.mainTexture);
+			if (tileRend.material.mainTexture == targetShape) { 
+				shapeSuccess = true;
+			}
+		//	if (targetTile.material.mainTexture == tileRend.material.mainTexture) {
+		//		shapeSuccess = true;
+		//	}*/
+
+		if (shapeSuccess && colourSuccess && angleSuccess) { return true; }
+		else { return false; }
+			
+	
 
 }

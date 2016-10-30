@@ -1,14 +1,17 @@
 ﻿#pragma strict
 
 
-public var tileType : String;
+public var tileType : String = "switch";
 public var tileState : String = "inactive";
 
 public var successStates : boolean[];
 public var successShape : Texture;
 
-public var pathSwitch : boolean = true;
-public var successColour : Color;
+public var colourOnePathObjects : Array[];
+public var colourOne : Color;
+//public var colourTwoPathObjects : Array[];
+
+//public var successColour : Color;
 
 
 //public var testInt;
