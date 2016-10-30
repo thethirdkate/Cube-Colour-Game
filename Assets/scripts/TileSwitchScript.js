@@ -81,7 +81,8 @@ function openPath(pathNum : int) {
 		//change the shader to grey
 
 		var stampBlock = childTile.Find("StampBlock");
-		stampBlock.GetComponent.<Renderer>().material.color = Color.gray;
+		stampBlock.GetComponent.<Renderer>().material.color = colourOne;
+
 
 
 	}
@@ -106,7 +107,7 @@ function closePath(pathNum : int) {
 		//change the shader to the original
 
 		var stampBlock = childTile.Find("StampBlock");
-		stampBlock.GetComponent.<Renderer>().material.color = Color.black;
+		stampBlock.GetComponent.<Renderer>().material.color = Color.gray;
 
 
 	}
