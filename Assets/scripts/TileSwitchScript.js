@@ -7,8 +7,10 @@ public var tileState : String = "inactive";
 public var successStates : boolean[];
 public var successShape : Texture;
 
-public var colourOnePathParent : GameObject;
-public var colourOne : Color;
+
+
+public var colourOnePathParent : GameObject[];
+public var colourOne : Color[];
 //public var colourTwoPathObjects : Array[];
 
 //private var originalColour : Color;
@@ -67,11 +69,11 @@ function openPath(pathNum : int) {
 
 	var pathParent : GameObject;
 
-	if (pathNum==1) { 
-		pathParent = colourOnePathParent;
-	}
+	//if (pathNum==1) { 
+	//	pathParent = colourOnePathParent[pathNum].transform;
+	//}
 
-	for (var childTile : Transform in colourOnePathParent.transform) {
+	for (var childTile : Transform in colourOnePathParent[pathNum].transform) {
 		//loop through the children
 
 		//disable the blocker
@@ -81,7 +83,7 @@ function openPath(pathNum : int) {
 		//change the shader to grey
 
 		var stampBlock = childTile.Find("StampBlock");
-		stampBlock.GetComponent.<Renderer>().material.color = colourOne;
+		stampBlock.GetComponent.<Renderer>().material.color = colourOne[pathNum];
 
 
 
@@ -93,11 +95,11 @@ function openPath(pathNum : int) {
 function closePath(pathNum : int) {
 	var pathParent : GameObject;
 
-	if (pathNum==1) { 
-		pathParent = colourOnePathParent;
-	}
+	//if (pathNum==1) { 
+	//	pathParent = colourOnePathParent[pathNum].gameObject;
+	//}
 
-	for (var childTile : Transform in colourOnePathParent.transform) {
+	for (var childTile : Transform in colourOnePathParent[pathNum].transform) {
 		//loop through the children
 
 		//enable the blocker

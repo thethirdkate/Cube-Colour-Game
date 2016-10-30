@@ -154,13 +154,18 @@ function calcCollision() {
 
 			//check ColourOne (to do : add functionality for multiple colours and paths)
 			//if it checks out...
-			if (doesTileMatch(tileScript.colourOne)) {
-				//open up the path through the tile's function
-				tileScript.openPath(1);
 
-			}
-			else {
-				tileScript.closePath(1);
+
+			//for each possible colour paths..
+			for (var i = 0; i <tileScript.colourOne.length; i++) {
+				if (doesTileMatch(tileScript.colourOne[i])) {
+					//open up the path through the tile's function
+					tileScript.openPath(i);
+
+				}
+				else {
+					tileScript.closePath(i);
+				}
 			}
 
 
