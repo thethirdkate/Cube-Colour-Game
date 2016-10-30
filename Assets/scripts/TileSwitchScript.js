@@ -7,9 +7,12 @@ public var tileState : String = "inactive";
 public var successStates : boolean[];
 public var successShape : Texture;
 
-public var colourOnePathObjects : Array[];
+public var colourOnePathParent : GameObject;
 public var colourOne : Color;
 //public var colourTwoPathObjects : Array[];
+
+//private var originalColour : Color;
+
 
 //public var successColour : Color;
 
@@ -20,6 +23,7 @@ public var colourOne : Color;
 
 function Start () {
 			transform.localScale.y = -0.1; //reverse the tile - so it mirrors the cube when stamped upon	
+			//originalColour = GetComponent.<Renderer>().material.color;
 }
 
 function Update () {
@@ -56,4 +60,56 @@ function OnTriggerExit(col: Collider) {
 	//if (col.gameObject.GetComponent.<CubeEdgeScript>().isDownFace) {
 	//	Debug.Log("hit down face " + col.name);
 	//}
+}
+
+
+function openPath(pathNum : int) {
+
+	var pathParent : GameObject;
+
+	if (pathNum==1) { 
+		pathParent = colourOnePathParent;
+	}
+
+	for (var childTile : Transform in colourOnePathParent.transform) {
+		//loop through the children
+
+		//disable the blocker
+		var blocker = childTile.Find("Blocker");
+		blocker.GetComponent.<PathBlockerScript>().isActive = false;
+
+		//change the shader to grey
+
+		var stampBlock = childTile.Find("StampBlock");
+		stampBlock.GetComponent.<Renderer>().material.color = Color.gray;
+
+
+	}
+
+
+}
+
+function closePath(pathNum : int) {
+	var pathParent : GameObject;
+
+	if (pathNum==1) { 
+		pathParent = colourOnePathParent;
+	}
+
+	for (var childTile : Transform in colourOnePathParent.transform) {
+		//loop through the children
+
+		//enable the blocker
+		var blocker = childTile.Find("Blocker");
+		blocker.GetComponent.<PathBlockerScript>().isActive = true;
+
+		//change the shader to the original
+
+		var stampBlock = childTile.Find("StampBlock");
+		stampBlock.GetComponent.<Renderer>().material.color = Color.black;
+
+
+	}
+
+
 }
