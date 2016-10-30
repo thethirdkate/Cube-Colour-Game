@@ -15,6 +15,8 @@ var cubePickupInk : AudioClip;
 
 public var downFace : GameObject;
 
+private var endCubeObject : GameObject;
+
 public var Reach : float = 1;
 
 var tileShader : Shader;
@@ -25,6 +27,8 @@ function Start()
     calcFaceDown();
     
     tileShader = Shader.Find("Transparent/Diffuse");
+
+    endCubeObject = GameObject.Find("EndCube");
 }
 
 
@@ -177,11 +181,18 @@ function calcCollision() {
 				//collidingTile.transform.position.y-=1;
 				tileScript.tileState = "done";
 				GetComponent.<AudioSource>().PlayOneShot(tileSuccessSound);
+
+				//UPDATE TILE COUNTING SCRIPT on the end game cube object
+				endCubeObject.GetComponent.<EndLevelScript>().addToTileCount();
+
+
 			}
 			
 			else {
 				//GetComponent.<AudioSource>().Success(GetComponent.<AudioSource>().clip);
 				GetComponent.<AudioSource>().PlayOneShot(tileFailSound);
+
+
 			}
 			
 			
