@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/00UnityAnswers/RollingCube/RollingCube.unity
+- path: Assets/scenes/Test lvl 9.unity
   isLoaded: 1
   isActive: 1

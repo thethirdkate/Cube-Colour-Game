@@ -1,11 +1,11 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/EndLevelScript.js">
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/RollingCube.js">
     <Files>
-      <File FileName="Assets/scripts/RollingCube.js" Line="1" Column="1" />
-      <File FileName="Assets/Editor/GUIScript.js" Line="4" Column="1" />
+      <File FileName="Assets/scripts/RollingCube.js" Line="160" Column="43" />
       <File FileName="Assets/scripts/TileScript.js" Line="1" Column="1" />
       <File FileName="Assets/EndLevelScript.js" Line="1" Column="1" />
+      <File FileName="Assets/scripts/TileSwitchScript.js" Line="76" Column="63" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
